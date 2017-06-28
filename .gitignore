@@ -1,0 +1,8 @@
+*.swp
+*.pyc
+*.swo
+*.swn
+*.txt
+*.csv
+*.json
+*.h5
