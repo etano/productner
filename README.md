@@ -18,7 +18,7 @@ The following libraries are required:
 
     cd ./data/
     wget http://snap.stanford.edu/data/amazon/productGraph/metadata.json.gz
-    tar -xzvf metadata.json.gz
+    gzip -d metadata.json.gz
 
 #### GloVe
 
