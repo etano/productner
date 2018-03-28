@@ -1,8 +1,7 @@
 """Parses Amazon product metadata found at http://snap.stanford.edu/data/amazon/productGraph/metadata.json.gz"""
 
-import sys, yaml, csv
+import csv, sys, yaml
 from yaml import CLoader as Loader
-from itertools import (takewhile,repeat)
 
 def usage():
     print """
@@ -15,7 +14,6 @@ def main(argv):
         usage()
     filename = sys.argv[1]
     with open(filename, 'rb') as f:
-        products = []
         count, good, bad = 0, 0, 0
         out = csv.writer(open("products.csv","w"))
         for line in f:

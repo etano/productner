@@ -25,7 +25,7 @@ def main(argv):
         count = 0
         for row in reader:
             count += 1
-            text, category = row['title']+' '+row['description'], row['categories'].split(' / ')[0]
+            text, category = row['description'], row['categories'].split(' / ')[0]
             texts.append(text)
             categories.append(category)
             if count >= MAX_TEXTS:
