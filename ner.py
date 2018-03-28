@@ -7,6 +7,7 @@ from keras.layers import Dense, Input, Flatten, Dropout, Embedding, LSTM, Bidire
 from keras.models import load_model, Model, Sequential
 from keras.utils import to_categorical
 from keras.preprocessing.sequence import pad_sequences
+from sklearn.metrics import classification_report
 
 class ProductNER(object):
     """Class which recognizes named entities
