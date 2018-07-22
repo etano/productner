@@ -3,8 +3,8 @@
 import os, json
 import numpy as np
 from keras.callbacks import ModelCheckpoint
-from keras.layers import Dense, Input, Flatten, Dropout, Embedding, LSTM, Bidirectional, TimeDistributed, Activation
-from keras.models import load_model, Model, Sequential
+from keras.layers import Dense, Embedding, LSTM, Bidirectional, TimeDistributed, Activation
+from keras.models import load_model, Sequential
 from keras.utils import to_categorical
 from keras.preprocessing.sequence import pad_sequences
 from sklearn.metrics import classification_report
@@ -194,15 +194,15 @@ class ProductNER(object):
         """Evaluate classifier
 
         Args:
-            x_test (np.array): 3D numpy array (n_samples, embedding_dim, tokenizer.max_sequence_length)
-            y_test (np.array): 2D numpy array (n_samples, len(self.tag_map))
+            x_test (np.array): 2D numpy array (n_samples, tokenizer.max_sequence_length)
+            y_test (np.array): 3D numpy array (n_samples, tokenizer.max_sequence_length, len(self.tag_map))
             batch_size (int): Training batch size
         """
         print('Evaluating...')
         predictions_last_epoch = self.model.predict(x_test, batch_size=batch_size, verbose=1)
-        predicted_classes = np.argmax(predictions_last_epoch, axis=1)
-        target_names = ['']*len(self.tag_map)
+        predicted_classes = np.argmax(predictions_last_epoch, axis=2).flatten()
+        y_val = np.argmax(y_test, axis=2).flatten()
+        target_names = ['']*(max(self.tag_map.itervalues())+1)
         for category in self.tag_map:
             target_names[self.tag_map[category]] = category
-        y_val = np.argmax(y_test, axis=1)
         print(classification_report(y_val, predicted_classes, target_names=target_names, digits = 6))
