@@ -44,7 +44,7 @@ The following libraries are required:
 
 ### Extract information
 
-To reproduce Product\ Dataset.processed.csv, run the following:
+Infer on our sample dataset with your model by running the following:
 
     python extract.py ./models/ Product\ Dataset.csv
 
@@ -63,7 +63,6 @@ To reproduce Product\ Dataset.processed.csv, run the following:
 - data/supplement.py: Supplements product data
 - data/tag.py: Tags product data
 - Product\ Dataset.csv: CSV file with product ids, names, and descriptions
-- Product\ Dataset.processed.csv: CSV file with product ids, names, descriptions, categories, and brands
 
 ## Algorithms
 
