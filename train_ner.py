@@ -20,7 +20,7 @@ def main(argv):
 
     # Fetch data
     texts, tags = [], []
-    with open(sys.argv[1], 'rb') as f:
+    with open(sys.argv[1], 'r') as f:
         reader = csv.DictReader(f, fieldnames=["title","brand","description","categories","tags"])
         count = 0
         for row in reader:

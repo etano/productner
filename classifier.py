@@ -38,7 +38,7 @@ class ProductClassifier(object):
         """
         if prefix != None: self.prefix = prefix
         self.model = load_model(self.prefix+'.h5')
-        self.category_map = json.load(open(self.prefix+'.json', 'rb'))
+        self.category_map = json.load(open(self.prefix+'.json', 'r'))
 
     def save(self, prefix=None):
         """Save in model and category map
@@ -111,7 +111,7 @@ class ProductClassifier(object):
         # Load embedding layer
         print('Loading GloVe embedding...')
         embeddings_index = {}
-        f = open(os.path.join(glove_dir, 'glove.6B.'+str(embedding_dim)+'d.txt'), 'rb')
+        f = open(os.path.join(glove_dir, 'glove.6B.'+str(embedding_dim)+'d.txt'), 'r')
         for line in f:
             values = line.split()
             word = values[0]

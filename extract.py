@@ -69,7 +69,7 @@ def main(argv):
     ner = ProductNER()
     ner.load(os.path.join(model_dir, 'ner'))
 
-    with open(data_file, 'rb') as f:
+    with open(data_file, 'r') as f:
         reader = csv.DictReader(f)
         outfile = open('.'.join(data_file.split('.')[:-1] + ['processed', 'csv']), 'wb')
         writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['category', 'brand'])

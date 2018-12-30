@@ -1,7 +1,7 @@
 import sys, csv
 from operator import itemgetter
 
-with open(sys.argv[1], 'rb') as f:
+with open(sys.argv[1], 'r') as f:
     reader = csv.reader(f)
     brands, categories = {}, {}
     count = 0
