@@ -6,6 +6,7 @@ from tokenizer import WordTokenizer
 from ner import ProductNER
 
 MAX_TEXTS = 1000000
+MAX_TEXTS = 1000
 
 def usage():
     print("""
@@ -43,7 +44,7 @@ def main(argv):
 
     # Compile NER network and train
     ner.compile(tokenizer)
-    ner.train(data, labels)
+    ner.train(data, labels,epochs=2)
 
 if __name__ == "__main__":
     main(sys.argv)

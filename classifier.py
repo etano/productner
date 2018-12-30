@@ -202,4 +202,4 @@ class ProductClassifier(object):
         for category in self.category_map:
             target_names[self.category_map[category]] = category
         y_val = np.argmax(y_test, axis=1)
-        print((classification_report(y_val, predicted_classes, target_names=target_names, digits = 6)))
+        print((classification_report(y_val, predicted_classes, target_names=target_names, digits = 6,labels=range(len(self.category_map)))))

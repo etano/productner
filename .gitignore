@@ -11,3 +11,4 @@
 *.zip
 *.gz
 .DS_Store
+/models

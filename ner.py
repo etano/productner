@@ -205,4 +205,5 @@ class ProductNER(object):
         target_names = ['']*(max(self.tag_map.values())+1)
         for category in self.tag_map:
             target_names[self.tag_map[category]] = category
-        print((classification_report(y_val, predicted_classes, target_names=target_names, digits = 6)))
+
+        print((classification_report(y_val, predicted_classes, target_names=target_names, digits = 6,labels=range(len(target_names)))))
