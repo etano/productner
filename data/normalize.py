@@ -21,7 +21,7 @@ with open(in_file, 'rb') as f:
     for row in reader:
         count += 1
         if not (count % 10000):
-            print count, 'rows normalized'
+            print (count, 'rows normalized')
         row = [unescape(x).lower().replace('\\n', ' ') for x in row]
         writer.writerow(row)
-    print count, 'rows normalized'
+    print (count, 'rows normalized')

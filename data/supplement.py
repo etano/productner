@@ -11,7 +11,7 @@ with open(in_file, 'rb') as f:
     for row in reader:
         count += 1
         if not (count % 10000):
-            print supplemented, '/', count, 'rows supplemented'
+            print (supplemented, '/', count, 'rows supplemented')
         title, brand, description = row[0], row[1], row[2]
         if not (brand in title):
             supplemented += 1
@@ -19,4 +19,4 @@ with open(in_file, 'rb') as f:
         description = title + ' ' + description
         row[0], row[1], row[2] = title, brand, description
         writer.writerow(row)
-    print supplemented, '/', count, 'rows supplemented'
+    print (supplemented, '/', count, 'rows supplemented')

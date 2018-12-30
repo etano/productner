@@ -8,10 +8,10 @@ from classifier import ProductClassifier
 MAX_TEXTS = 1000000
 
 def usage():
-    print """
+    print("""
 USAGE: python train_classifier.py data_file.csv
 FORMAT: "title","brand","description","categories"
-"""
+""")
     sys.exit(0)
 
 def main(argv):
@@ -30,7 +30,7 @@ def main(argv):
             categories.append(category)
             if count >= MAX_TEXTS:
                 break
-    print('Processed %s texts.' % len(texts))
+    print(('Processed %s texts.' % len(texts)))
 
     # Tokenize texts
     tokenizer = WordTokenizer()

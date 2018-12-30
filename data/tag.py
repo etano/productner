@@ -11,7 +11,7 @@ with open(in_file, 'rb') as f:
     for row in reader:
         count += 1
         if not (count % 10000):
-            print count, 'rows tagged'
+            print (count, 'rows tagged')
         title, brand, description = row[0], row[1], row[2]
         tagging = ''
         brand = brand.split(' ')
@@ -32,4 +32,4 @@ with open(in_file, 'rb') as f:
                 tagging += 'O '
         row.append(tagging)
         writer.writerow(row)
-    print count, 'rows tagged'
+    print (count, 'rows tagged')

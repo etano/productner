@@ -65,7 +65,7 @@ class ProductClassifier(object):
             if not (category in self.category_map):
                 self.category_map[category] = len(self.category_map)
             indices.append(self.category_map[category])
-        print('Found %s unique categories.' % len(self.category_map))
+        print(('Found %s unique categories.' % len(self.category_map)))
         return indices
 
     def classify(self, data):
@@ -118,12 +118,12 @@ class ProductClassifier(object):
             coefs = np.asarray(values[1:], dtype='float32')
             embeddings_index[word] = coefs
         f.close()
-        print('Found %s word vectors.' % len(embeddings_index))
+        print(('Found %s word vectors.' % len(embeddings_index)))
 
         # Create embedding layer
         print('Creating embedding layer...')
         embedding_matrix = np.zeros((len(tokenizer.tokenizer.word_index) + 1, embedding_dim))
-        for word, i in tokenizer.tokenizer.word_index.items():
+        for word, i in list(tokenizer.tokenizer.word_index.items()):
             embedding_vector = embeddings_index.get(word)
             if embedding_vector is not None:
                 # words not found in embedding index will be all-zeros.
@@ -202,4 +202,4 @@ class ProductClassifier(object):
         for category in self.category_map:
             target_names[self.category_map[category]] = category
         y_val = np.argmax(y_test, axis=1)
-        print(classification_report(y_val, predicted_classes, target_names=target_names, digits = 6))
+        print((classification_report(y_val, predicted_classes, target_names=target_names, digits = 6)))

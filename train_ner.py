@@ -8,10 +8,10 @@ from ner import ProductNER
 MAX_TEXTS = 1000000
 
 def usage():
-    print """
+    print("""
 USAGE: python train_ner.py data_file.csv
 FORMAT: "title","brand","description","categories"
-"""
+""")
     sys.exit(0)
 
 def main(argv):
@@ -30,7 +30,7 @@ def main(argv):
             tags.append(tag_set)
             if count >= MAX_TEXTS:
                 break
-    print('Processed %s texts.' % len(texts))
+    print(('Processed %s texts.' % len(texts)))
 
     # Tokenize texts
     tokenizer = WordTokenizer()

@@ -6,3 +6,8 @@
 *.csv
 *.json
 *.h5
+
+.idea/*
+*.zip
+*.gz
+.DS_Store

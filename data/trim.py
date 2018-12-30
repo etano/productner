@@ -12,12 +12,12 @@ with open(in_file, 'rb') as f:
         try:
             count += 1
             if not (count % 10000):
-                print trimmed, '/', count, 'rows trimmed'
+                print (trimmed, '/', count, 'rows trimmed')
             brand = row[1].lower()
             if brand == 'unknown' or brand == '' or brand == 'generic':
                 trimmed += 1
                 continue
             writer.writerow(row)
         except:
-            print row
-    print trimmed, '/', count, 'rows trimmed'
+            print (row)
+    print (trimmed, '/', count, 'rows trimmed')

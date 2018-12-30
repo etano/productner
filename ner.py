@@ -127,12 +127,12 @@ class ProductNER(object):
             coefs = np.asarray(values[1:], dtype='float32')
             embeddings_index[word] = coefs
         f.close()
-        print('Found %s word vectors.' % len(embeddings_index))
+        print(('Found %s word vectors.' % len(embeddings_index)))
 
         # Create embedding layer
         print('Creating embedding layer...')
         embedding_matrix = np.zeros((len(tokenizer.tokenizer.word_index) + 1, embedding_dim))
-        for word, i in tokenizer.tokenizer.word_index.items():
+        for word, i in list(tokenizer.tokenizer.word_index.items()):
             embedding_vector = embeddings_index.get(word)
             if embedding_vector is not None:
                 # words not found in embedding index will be all-zeros.
@@ -180,7 +180,7 @@ class ProductNER(object):
         x_val = data[-nb_validation_samples:]
         y_val = labels[-nb_validation_samples:]
 
-        print data.shape, labels.shape
+        print(data.shape, labels.shape)
 
         # Train!
         self.save()
@@ -202,7 +202,7 @@ class ProductNER(object):
         predictions_last_epoch = self.model.predict(x_test, batch_size=batch_size, verbose=1)
         predicted_classes = np.argmax(predictions_last_epoch, axis=2).flatten()
         y_val = np.argmax(y_test, axis=2).flatten()
-        target_names = ['']*(max(self.tag_map.itervalues())+1)
+        target_names = ['']*(max(self.tag_map.values())+1)
         for category in self.tag_map:
             target_names[self.tag_map[category]] = category
-        print(classification_report(y_val, predicted_classes, target_names=target_names, digits = 6))
+        print((classification_report(y_val, predicted_classes, target_names=target_names, digits = 6)))
