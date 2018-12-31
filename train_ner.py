@@ -6,7 +6,6 @@ from tokenizer import WordTokenizer
 from ner import ProductNER
 
 MAX_TEXTS = 1000000
-MAX_TEXTS = 1000
 
 def usage():
     print("""
