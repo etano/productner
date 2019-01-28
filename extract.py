@@ -33,10 +33,10 @@ def process(row, tokenizer, classifier, ner):
     brand, brand_started = '', False
     for word, tag in zip(row['name'].split(' '), tags):
         max_tag = max(list(tag.items()), key=itemgetter(1))[0]
-        if max_tag == 'B-B' and (not brand_started):
+        if  'B-B' in max_tag and (not brand_started):
             brand = word
             brand_started = True
-        elif max_tag == 'I-B' and brand_started:
+        elif 'I-B' in max_tag  and brand_started:
             brand += ' '+word
         else:
             brand_started = False
