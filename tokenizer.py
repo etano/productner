@@ -2,7 +2,10 @@
 
 import os
 import numpy as np
-import pickle
+try:
+   import cPickle as pickle
+except:
+   import pickle
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 
