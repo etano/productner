@@ -43,7 +43,7 @@ def main(argv):
 
     # Compile NER network and train
     ner.compile(tokenizer)
-    ner.train(data, labels,epochs=2)
+    ner.train(data, labels, epochs=2)
 
 if __name__ == "__main__":
     main(sys.argv)
