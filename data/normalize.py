@@ -18,15 +18,6 @@ def unescape(s):
         output=p.save_end()
     return output
 
-# def unescape(s):
-#     p = HTMLParser()
-#     # p.save_bgn()
-#     try:
-#         p.feed(str(s))
-#     except:
-#         return s
-#     p.close()
-#     return p.unescape(str(s))
 
 in_file = sys.argv[1]
 out_file = '.'.join(in_file.split('.')[:-1] + ['normalized'] + ['csv'])
