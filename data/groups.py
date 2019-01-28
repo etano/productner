@@ -15,4 +15,4 @@ with open(sys.argv[1], 'r') as f:
         if category in categories: categories[category] += 1
         else: categories[category] = 1
     print( sorted(brands.items(), key=itemgetter(1)))
-    print (sorted(categories.items(), key=itemgetter(1)))
+    print( sorted(categories.items(), key=itemgetter(1)))
