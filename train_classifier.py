@@ -43,7 +43,7 @@ def main(argv):
 
     # Compile classifier network and train
     classifier.compile(tokenizer)
-    classifier.train(data, labels,epochs=2)
+    classifier.train(data, labels, epochs=2)
 
 if __name__ == "__main__":
     main(sys.argv)
