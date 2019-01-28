@@ -206,4 +206,4 @@ class ProductNER(object):
         for category in self.tag_map:
             target_names[self.tag_map[category]] = category
 
-        print((classification_report(y_val, predicted_classes, target_names=target_names, digits = 6,labels=range(len(target_names)))))
+        print((classification_report(y_val, predicted_classes, target_names=target_names, digits = 6, labels=range(len(target_names)))))
