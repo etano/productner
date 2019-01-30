@@ -25,18 +25,18 @@ def process(row, tokenizer, classifier, ner):
     # Classify
     data = tokenizer.tokenize([row['name'] + ' ' + row['description']])
     categories = classifier.classify(data)[0]
-    row['category'] = max(categories.items(), key=itemgetter(1))[0]
+    row['category'] = max(list(categories.items()), key=itemgetter(1))[0]
 
     # Extract entities
     data = tokenizer.tokenize([row['name']])
     tags = ner.tag(data)[0]
     brand, brand_started = '', False
     for word, tag in zip(row['name'].split(' '), tags):
-        max_tag = max(tag.items(), key=itemgetter(1))[0]
-        if max_tag == u'B-B' and (not brand_started):
+        max_tag = max(list(tag.items()), key=itemgetter(1))[0]
+        if  'B-B' in max_tag and (not brand_started):
             brand = word
             brand_started = True
-        elif max_tag == u'I-B' and brand_started:
+        elif 'I-B' in max_tag  and brand_started:
             brand += ' '+word
         else:
             brand_started = False
@@ -45,10 +45,10 @@ def process(row, tokenizer, classifier, ner):
     return row
 
 def usage():
-    print """
+    print("""
 USAGE: python extract.py model_dir data_file.csv
 FORMAT: "id","name","description","price"
-"""
+""")
     sys.exit(0)
 
 def main(argv):
@@ -69,7 +69,7 @@ def main(argv):
     ner = ProductNER()
     ner.load(os.path.join(model_dir, 'ner'))
 
-    with open(data_file, 'rb') as f:
+    with open(data_file, 'r') as f:
         reader = csv.DictReader(f)
         outfile = open('.'.join(data_file.split('.')[:-1] + ['processed', 'csv']), 'wb')
         writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['category', 'brand'])

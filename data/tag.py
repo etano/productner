@@ -4,14 +4,14 @@ import sys, csv
 
 in_file = sys.argv[1]
 out_file = '.'.join(in_file.split('.')[:-1] + ['tagged'] + ['csv'])
-with open(in_file, 'rb') as f:
+with open(in_file, 'r') as f:
     reader = csv.reader(f)
     writer = csv.writer(open(out_file,"w"))
     count = 0
     for row in reader:
         count += 1
         if not (count % 10000):
-            print count, 'rows tagged'
+            print (count, 'rows tagged')
         title, brand, description = row[0], row[1], row[2]
         tagging = ''
         brand = brand.split(' ')
@@ -32,4 +32,4 @@ with open(in_file, 'rb') as f:
                 tagging += 'O '
         row.append(tagging)
         writer.writerow(row)
-    print count, 'rows tagged'
+    print (count, 'rows tagged')

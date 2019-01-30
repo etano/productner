@@ -8,10 +8,10 @@ from classifier import ProductClassifier
 MAX_TEXTS = 1000000
 
 def usage():
-    print """
+    print("""
 USAGE: python train_classifier.py data_file.csv
 FORMAT: "title","brand","description","categories"
-"""
+""")
     sys.exit(0)
 
 def main(argv):
@@ -20,7 +20,7 @@ def main(argv):
 
     # Fetch data
     texts, categories = [], []
-    with open(sys.argv[1], 'rb') as f:
+    with open(sys.argv[1], 'r') as f:
         reader = csv.DictReader(f, fieldnames=["title","brand","description","categories"])
         count = 0
         for row in reader:
@@ -30,7 +30,7 @@ def main(argv):
             categories.append(category)
             if count >= MAX_TEXTS:
                 break
-    print('Processed %s texts.' % len(texts))
+    print(('Processed %s texts.' % len(texts)))
 
     # Tokenize texts
     tokenizer = WordTokenizer()
@@ -43,7 +43,7 @@ def main(argv):
 
     # Compile classifier network and train
     classifier.compile(tokenizer)
-    classifier.train(data, labels)
+    classifier.train(data, labels, epochs=2)
 
 if __name__ == "__main__":
     main(sys.argv)
