@@ -2,12 +2,14 @@
 
 import os
 import numpy as np
+
 try:
-   import cPickle as pickle
+    import cPickle as pickle
 except:
-   import pickle
+    import pickle
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
+
 
 class WordTokenizer(object):
     """Class which tokenizes words
@@ -36,13 +38,13 @@ class WordTokenizer(object):
             prefix (str): Prefix for tokenizer save file
         """
         if prefix != None: self.prefix = prefix
-        pickle.dump(self.tokenizer, open(self.prefix+".pickle", "wb"))
+        pickle.dump(self.tokenizer, open(self.prefix + ".pickle", "wb"))
 
     def load(self, prefix=None):
         """Loads the tokenizer
         """
         if prefix != None: self.prefix = prefix
-        self.tokenizer = pickle.load(open(self.prefix+".pickle", "rb"))
+        self.tokenizer = pickle.load(open(self.prefix + ".pickle", "rb"))
 
     def train(self, texts, max_nb_words=80000):
         """Takes a list of texts, fits a tokenizer to them, and creates the embedding matrix.

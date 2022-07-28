@@ -1,12 +1,15 @@
 """Product classifier class"""
 
-import os, json
+import json
+import os
+
 import numpy as np
 from keras.callbacks import ModelCheckpoint
 from keras.layers import Dense, Input, Flatten, Dropout, Conv1D, MaxPooling1D, Embedding
 from keras.models import load_model, Model
 from keras.utils.np_utils import to_categorical
 from sklearn.metrics import classification_report
+
 
 class ProductClassifier(object):
     """Class which classifies products based on various inputs
@@ -37,8 +40,8 @@ class ProductClassifier(object):
             prefix (str): Prefix of directory containing model HDF5 file and category map JSON file
         """
         if prefix != None: self.prefix = prefix
-        self.model = load_model(self.prefix+'.h5')
-        self.category_map = json.load(open(self.prefix+'.json', 'r'))
+        self.model = load_model(self.prefix + '.h5')
+        self.category_map = json.load(open(self.prefix + '.json', 'r'))
 
     def save(self, prefix=None):
         """Save in model and category map
@@ -47,8 +50,8 @@ class ProductClassifier(object):
             prefix (str): Prefix of directory containing model HDF5 file and category map JSON file
         """
         if prefix != None: self.prefix = prefix
-        self.model.save(self.prefix+'.h5')
-        with open(self.prefix+'.json', 'w') as out:
+        self.model.save(self.prefix + '.h5')
+        with open(self.prefix + '.json', 'w') as out:
             json.dump(self.category_map, out)
 
     def index_categories(self, categories):
@@ -81,7 +84,7 @@ class ProductClassifier(object):
         for i in range(prediction.shape[0]):
             category_probs = {}
             for category in self.category_map:
-                category_probs[category] = prediction[i,self.category_map[category]]
+                category_probs[category] = prediction[i, self.category_map[category]]
             all_category_probs.append(category_probs)
         return all_category_probs
 
@@ -97,7 +100,8 @@ class ProductClassifier(object):
         labels = to_categorical(np.asarray(indexed_categories))
         return labels
 
-    def compile(self, tokenizer, glove_dir='./data/', embedding_dim=100, dropout_fraction=0.0, kernal_size=5, n_filters=128):
+    def compile(self, tokenizer, glove_dir='./data/', embedding_dim=100, dropout_fraction=0.0, kernal_size=5,
+                n_filters=128):
         """Compile network model for classifier
 
         Args:
@@ -111,7 +115,7 @@ class ProductClassifier(object):
         # Load embedding layer
         print('Loading GloVe embedding...')
         embeddings_index = {}
-        f = open(os.path.join(glove_dir, 'glove.6B.'+str(embedding_dim)+'d.txt'), 'r')
+        f = open(os.path.join(glove_dir, 'glove.6B.' + str(embedding_dim) + 'd.txt'), 'r')
         for line in f:
             values = line.split()
             word = values[0]
@@ -181,7 +185,7 @@ class ProductClassifier(object):
 
         # Train!
         self.save()
-        checkpointer = ModelCheckpoint(filepath=self.prefix+'.h5', verbose=1, save_best_only=False)
+        checkpointer = ModelCheckpoint(filepath=self.prefix + '.h5', verbose=1, save_best_only=False)
         self.model.fit(x_train, y_train, validation_data=(x_val, y_val),
                        callbacks=[checkpointer],
                        nb_epoch=epochs, batch_size=batch_size)
@@ -198,8 +202,9 @@ class ProductClassifier(object):
         print('Evaluating...')
         predictions_last_epoch = self.model.predict(x_test, batch_size=batch_size, verbose=1)
         predicted_classes = np.argmax(predictions_last_epoch, axis=1)
-        target_names = ['']*len(self.category_map)
+        target_names = [''] * len(self.category_map)
         for category in self.category_map:
             target_names[self.category_map[category]] = category
         y_val = np.argmax(y_test, axis=1)
-        print((classification_report(y_val, predicted_classes, target_names=target_names, digits = 6,labels=range(len(self.category_map)))))
+        print((classification_report(y_val, predicted_classes, target_names=target_names, digits=6,
+                                     labels=range(len(self.category_map)))))

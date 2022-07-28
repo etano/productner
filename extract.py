@@ -1,12 +1,14 @@
 """Script to extract product category specific attributes based on product titles and descriptions
 """
 
-import sys, os, csv
-import numpy as np
+import csv
+import os
+import sys
 from operator import itemgetter
-from tokenizer import WordTokenizer
+
 from classifier import ProductClassifier
 from ner import ProductNER
+from tokenizer import WordTokenizer
 
 
 def process(row, tokenizer, classifier, ner):

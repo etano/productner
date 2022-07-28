@@ -1,13 +1,16 @@
 """Named entity recognition class"""
 
-import os, json
+import json
+import os
+
 import numpy as np
 from keras.callbacks import ModelCheckpoint
 from keras.layers import Dense, Embedding, LSTM, Bidirectional, TimeDistributed, Activation
 from keras.models import load_model, Sequential
-from keras.utils.np_utils import to_categorical
 from keras.preprocessing.sequence import pad_sequences
+from keras.utils.np_utils import to_categorical
 from sklearn.metrics import classification_report
+
 
 class ProductNER(object):
     """Class which recognizes named entities

@@ -1,10 +1,13 @@
 """Script to train a word tokenizer
 """
 
-import sys, csv
+import csv
+import sys
+
 from tokenizer import WordTokenizer
 
 MAX_TEXTS = 1000000
+
 
 def usage():
     print("""
@@ -13,6 +16,7 @@ FORMAT: "title","brand","description","categories"
 """)
     sys.exit(0)
 
+
 def main(argv):
     if len(argv) < 2:
         usage()
@@ -20,11 +24,11 @@ def main(argv):
     # Fetch data
     texts, categories = [], []
     with open(sys.argv[1], 'r') as f:
-        reader = csv.DictReader(f, fieldnames=["title","brand","description","categories"])
+        reader = csv.DictReader(f, fieldnames=["title", "brand", "description", "categories"])
         count = 0
         for row in reader:
             count += 1
-            text, category = row['title']+' '+row['description'], row['categories'].split(' / ')[0]
+            text, category = row['title'] + ' ' + row['description'], row['categories'].split(' / ')[0]
             texts.append(text)
             categories.append(category)
             if count >= MAX_TEXTS:
@@ -34,6 +38,7 @@ def main(argv):
     # Tokenize texts
     tokenizer = WordTokenizer()
     tokenizer.train(texts)
+
 
 if __name__ == "__main__":
     main(sys.argv)
