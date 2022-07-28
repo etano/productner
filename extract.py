@@ -8,6 +8,7 @@ from tokenizer import WordTokenizer
 from classifier import ProductClassifier
 from ner import ProductNER
 
+
 def process(row, tokenizer, classifier, ner):
     """Run a row through processing pipeline
 
@@ -33,16 +34,17 @@ def process(row, tokenizer, classifier, ner):
     brand, brand_started = '', False
     for word, tag in zip(row['name'].split(' '), tags):
         max_tag = max(list(tag.items()), key=itemgetter(1))[0]
-        if  'B-B' in max_tag and (not brand_started):
+        if 'B-B' in max_tag and (not brand_started):
             brand = word
             brand_started = True
-        elif 'I-B' in max_tag  and brand_started:
-            brand += ' '+word
+        elif 'I-B' in max_tag and brand_started:
+            brand += ' ' + word
         else:
             brand_started = False
     row['brand'] = brand
 
     return row
+
 
 def usage():
     print("""
@@ -50,6 +52,7 @@ USAGE: python extract.py model_dir data_file.csv
 FORMAT: "id","name","description","price"
 """)
     sys.exit(0)
+
 
 def main(argv):
     if len(argv) < 3:
@@ -69,17 +72,18 @@ def main(argv):
     ner = ProductNER()
     ner.load(os.path.join(model_dir, 'ner'))
 
-    with open(data_file, 'r') as f:
+    with open(data_file, 'r', encoding="iso-8859-1") as f:
         reader = csv.DictReader(f)
-        outfile = open('.'.join(data_file.split('.')[:-1] + ['processed', 'csv']), 'wb')
-        writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['category', 'brand'])
-        writer.writeheader()
-        count = 0
-        for row in reader:
-            count += 1
-            processed_row = process(row, tokenizer, classifier, ner)
-            print(processed_row)
-            writer.writerow(processed_row)
+        with open('.'.join(data_file.split('.')[:-1] + ['processed', 'csv']), 'w', encoding="utf-8") as outfile:
+            writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['category', 'brand'])
+            writer.writeheader()
+            count = 0
+            for row in reader:
+                count += 1
+                processed_row = process(row, tokenizer, classifier, ner)
+                print(processed_row)
+                writer.writerow(processed_row)
+
 
 if __name__ == "__main__":
     main(sys.argv)

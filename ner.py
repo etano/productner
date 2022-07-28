@@ -5,7 +5,7 @@ import numpy as np
 from keras.callbacks import ModelCheckpoint
 from keras.layers import Dense, Embedding, LSTM, Bidirectional, TimeDistributed, Activation
 from keras.models import load_model, Sequential
-from keras.utils import to_categorical
+from keras.utils.np_utils import to_categorical
 from keras.preprocessing.sequence import pad_sequences
 from sklearn.metrics import classification_report
 
@@ -103,7 +103,7 @@ class ProductNER(object):
         print('Getting labels...')
         for tag_set in tag_sets:
             indexed_tags = self.index_tags(tag_set)
-            labels.append(to_categorical(np.asarray(indexed_tags), num_classes=4))
+            labels.append(to_categorical(np.asarray(indexed_tags), nb_classes=4))
         labels = pad_sequences(labels, maxlen=200)
         return labels
 
@@ -187,7 +187,7 @@ class ProductNER(object):
         checkpointer = ModelCheckpoint(filepath=self.prefix+'.h5', verbose=1, save_best_only=False)
         self.model.fit(x_train, y_train, validation_data=(x_val, y_val),
                        callbacks=[checkpointer],
-                       epochs=epochs, batch_size=batch_size)
+                       nb_epoch=epochs, batch_size=batch_size)
         self.evaluate(x_val, y_val, batch_size)
 
     def evaluate(self, x_test, y_test, batch_size=256):

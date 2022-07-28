@@ -4,11 +4,10 @@ This repository is meant to automatically extract features from product titles a
 
 ## Requirements
 
-The following libraries are required:
-
-- Keras >2.0 (https://keras.io/#installation)
-- Tensorflow >r1.0 (https://www.tensorflow.org/install/)
-- SKlearn >0.18 (http://scikit-learn.org/stable/) (for metrics only)
+Use Python 3.7 and install dependencies via following command (please use venv or conda):
+```
+pip install -r requirements.txt
+```
 
 ## Usage
 
@@ -23,7 +22,7 @@ The following libraries are required:
 #### GloVe
 
     cd ./data/
-    wget http://nlp.stanford.edu/data/glove.6B.zip
+    wget https://nlp.stanford.edu/data/glove.6B.zip
     unzip glove.6B.zip
 
 ### Preprocessing data

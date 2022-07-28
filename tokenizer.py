@@ -53,7 +53,7 @@ class WordTokenizer(object):
         """
         # Tokenize
         print('Training tokenizer...')
-        self.tokenizer = Tokenizer(num_words=max_nb_words)
+        self.tokenizer = Tokenizer(nb_words=max_nb_words)
         self.tokenizer.fit_on_texts(texts)
         self.save()
         print(('Found %s unique tokens.' % len(self.tokenizer.word_index)))
