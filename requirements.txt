@@ -1,0 +1,6 @@
+keras==1.2.2
+scikit-learn
+tensorflow<2.0
+h5py
+PyYAML
+protobuf<3.20.0
